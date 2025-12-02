@@ -24,3 +24,16 @@ console.log(bigint + BigInt(number)); // 3n
 
 // bigint to number
 console.log(Number(bigint) + number); // 3
+
+{
+  //NOTES: The unary plus (convert value to number) is not supported on bigints
+  let bigint = 1n;
+
+  // alert(+bigint); // error
+}
+
+//Comparisons
+console.log(2n > 1n); // true
+console.log(2n > 1); // true
+console.log(1 == 1n); // true
+console.log(1 === 1n); // false
