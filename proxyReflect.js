@@ -39,7 +39,18 @@ Internal Method       |	Handler Method            |	Triggers when…
 
 //Default value with “get” trap
 
-/**
+/**TASK 1
+ * Error on reading non-existent property
+Usually, an attempt to read a non-existent property returns undefined.
+
+Create a proxy that throws an error for an attempt to read of a non-existent property instead.
+
+That can help to detect programming mistakes early.
+
+Write a function wrap(target) that takes an object target and return a proxy that adds this functionality aspect.
+
+That’s how it should work:
+ * 
  * let user = {
   name: "John"
 };
@@ -75,4 +86,58 @@ function wrap(target) {
 
 user = wrap(user);
 console.log(user.name);
-console.log(user.age); // show ref error we set in the function wrap
+// console.log(user.age); // show ref error we set in the function wrap
+
+/**TASK 2
+ * Accessing array[-1]
+In some programming languages, we can access array elements using negative indexes, counted from the end.
+
+Like this:
+
+let array = [1, 2, 3];
+
+array[-1]; // 3, the last element
+array[-2]; // 2, one step from the end
+array[-3]; // 1, two steps from the end
+In other words, array[-N] is the same as array[array.length - N].
+
+Create a proxy to implement that behavior.
+
+That’s how it should work:
+
+let array = [1, 2, 3];
+
+array = new Proxy(array, {
+  /* your code /
+});
+
+alert( array[-1] ); // 3
+alert( array[-2] ); // 2
+
+// Other array functionality should be kept "as is"
+ */
+
+let array = [1, 2, 3];
+
+array[-1];
+array[-2];
+console.log(array[-1]); // undefined
+console.log(array[-2]); // undefined
+
+console.log(array.at(-1)); //3
+console.log(array.at(-2)); //2
+
+//Pake PROXY supaya array bisa pake index negatif
+
+array = new Proxy(array, {
+  get(target, prop, receiver) {
+    if (prop < 0) {
+      prop = +prop + target.length;
+    }
+    return Reflect.get(target, prop, receiver);
+  },
+});
+
+console.log(array[1]); // 2
+console.log(array[-1]); // 3
+console.log(array[-2]); // 2
