@@ -37,3 +37,13 @@ console.log(2n > 1n); // true
 console.log(2n > 1); // true
 console.log(1 == 1n); // true
 console.log(1 === 1n); // false
+
+//Boolean operations
+if (0n) {
+  //will convert to false
+  //never runs
+}
+
+console.log(1n || 2); // 1n (1n is considered truthy)
+
+console.log(0n || 2); // 2 (0n is considered falsy)
